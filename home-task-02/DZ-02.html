@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>ДЗ №2</title>
+	</head>
+	<body>
+		<script>
+
+			function rand (min, max) {
+			  return Math.floor(Math.random() * (max - min)) + min;
+			}
+
+			function getMatrix(size) {
+			  var arr = [];
+			  for (var i = 0; i < size; i++) {
+			    arr[i] = [];
+			    for (var j = 0; j < size; j++) {
+			      arr[i].push(rand(0, 100));
+			    }
+			  }
+
+			  return arr;
+			}
+
+			var matrix = getMatrix(10);
+			console.table(matrix);
+
+			function getPerimeterReturn(arr) {
+
+				var top = arr[0].slice(1, arr.length-1).reverse(),
+				    right = [],
+				    bottom = arr[arr.length - 1].slice(1, arr.length-1),
+				    left = [];
+
+				for (var i = 0; i < arr.length; i++) {
+
+				    var lastIndex = arr.length - 1;
+
+				    left.push(arr[i][0]);
+				    right.push(arr[lastIndex - i][lastIndex]);
+				}
+
+				return left.concat(bottom, right, top);
+			}
+
+			var result = getPerimeterReturn(matrix);
+			console.log(result);
+
+
+
+			function getPerimeterChiefTriangle(arr) {
+
+				var top = arr[0].slice(),
+				    right = [],
+				    diagonal = [];
+
+				for (var i = 0; i < arr.length; i++) {
+
+				    var lastIndex = arr.length - 1;
+
+					right.push(arr[i][lastIndex]);
+
+					diagonal.push(arr[i][i]);
+				
+				}
+
+				return top.concat(right.slice(1, arr.length-1), diagonal.slice(1, arr.length).reverse());
+			}
+
+			var result = getPerimeterChiefTriangle(matrix);
+			console.log(result);
+
+
+			function getPerimeterAdverseTriangle(arr) {
+
+				var right = [],
+				    bottom = arr[arr.length-1].slice(1, arr.length-1).reverse(),
+				    diagonal = [];
+
+				for (var i = 0; i < arr.length; i++) {
+
+				    var lastIndex = arr.length - 1;
+
+					right.push(arr[i][lastIndex]);
+
+					diagonal.push(arr[lastIndex-i][i]);
+				
+				}
+
+				return right.concat(bottom, diagonal.slice(0, arr.length-1));
+			}
+
+			var result = getPerimeterAdverseTriangle(matrix);
+			console.log(result);
+		</script>
+	</body>
+</html>
